@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const workoutRoutes = require('./routes/workouts')
+const cors = require('cors')
 
 // creating the express app
 const app = express()
@@ -13,6 +14,15 @@ app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
 })
+
+// cors
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }
+ 
+ app.use(cors(corsOptions)) // Use this after the variable declaration
 
 // routes
 app.use('/api/workouts', workoutRoutes)
